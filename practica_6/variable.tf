@@ -29,3 +29,10 @@ variable "tags" {
     type = map(string)
   
 }
+
+variable "sg_ingress_cidr" {
+    description = "value for the ingress rule"
+    type = string
+    
+  
+}
