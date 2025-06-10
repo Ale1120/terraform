@@ -36,3 +36,9 @@ variable "sg_ingress_cidr" {
     
   
 }
+variable "ec2_specs" {
+    description = "EC2 instance specifications"
+    type = map(string)
+    
+  
+}
