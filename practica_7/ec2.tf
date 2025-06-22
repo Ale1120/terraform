@@ -12,7 +12,7 @@ resource "aws_instance" "public_instance" {
     ]
     tags =  {
         #Name = "${var.instancia[count.index]}-instance"
-        Name = "${each.value}-instance"
+        Name = "${each.value}-${local.sufix}-instance"
     }
 }    
 
@@ -28,6 +28,6 @@ resource "aws_instance" "monitoring_instance" {
         aws_security_group.sg_public_instance.id
     ]
     tags =  {
-        Name = "Monitoreo"
+        Name = "Monitoreo-${local.sufix}-instance"
     }
 }  

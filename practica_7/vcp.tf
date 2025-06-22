@@ -2,7 +2,7 @@ resource "aws_vpc" "vpc_virgina" {
     cidr_block = var.virginia_cider
     #cidr_block =  lookup(var.virginia.cidr, terraform.workspace
     tags = {
-        Name = "VPC Virginia"
+        Name = "VPC Virginia-${local.sufix}"
     }
 
   
@@ -21,7 +21,7 @@ resource "aws_subnet" "private_subnet_virginia" {
     vpc_id = aws_vpc.vpc_virgina.id
     cidr_block = var.subnets[1] 
     tags = {
-        Name = "Private subnetl"
+        Name = "Private subnetl${local.sufix}"
     }
     depends_on = [ 
         aws_subnet.public_subnet_virginia
@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnet_virginia" {
 resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.vpc_virgina.id
     tags = {
-        Name = "Internet Gateway"
+        Name = "Internet Gateway${local.sufix}"
     }
   
 }
@@ -45,7 +45,7 @@ resource "aws_route_table" "public_crt" {
     }
     
     tags = {
-        Name = "Public Route Table"
+        Name = "Public Route Table${local.sufix}"
     }
 }
 
@@ -61,16 +61,18 @@ resource "aws_security_group" "sg_public_instance" {
     vpc_id = aws_vpc.vpc_virgina.id
     description = "Allow HTTP and SSH inbound traffic"
 
-    ingress {
-        description = "Allow HTTP inbound traffic"
-        from_port = 22
-        to_port = 22
-        protocol = "tcp"
-        cidr_blocks = [
-            var.sg_ingress_cidr
-        ]
+    dynamic "ingress" {
+        for_each = var.ingress_port_list
+        content {
+            from_port = ingress.value
+            to_port = ingress.value
+            protocol = "tcp"
+            cidr_blocks = [
+                var.sg_ingress_cidr
+            ]
+        }
+      
     }
-
      egress {
         from_port = 0
         to_port = 0
@@ -80,7 +82,7 @@ resource "aws_security_group" "sg_public_instance" {
         ]
      }
     tags = {
-        Name = "Public Security Group"
+        Name = "Public Security Group${local.sufix}"
     }
   
 }

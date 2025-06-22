@@ -56,3 +56,9 @@ variable "ec2_specs" {
     
   
 }
+
+variable "ingress_port_list" {
+    description = "List of ingress ports for the security group"
+    type = list(number)
+  
+}

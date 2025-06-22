@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+*key.pem
+*.pem
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
