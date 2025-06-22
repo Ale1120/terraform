@@ -37,4 +37,18 @@ resource "aws_instance" "public_instance" {
     #     aws_subnet.private_subnet_virginia.id 
     #      ]
     # }
-}  
+}
+# import
+# resource "aws_instance" "mywebserver" {
+#     ami                                  = "ami-09e6f87a47903347c"
+#     instance_type                        = "t2.micro"
+#     key_name                             = data.aws_key_pair.key.key_name
+#     subnet_id                            = aws_subnet.public_subnet_virginia.id
+#     tags                                 = {
+#         "Name" = "test"
+#     }
+#     vpc_security_group_ids               = [
+#         aws_security_group.sg_public_instance.id
+#     ]
+
+# }

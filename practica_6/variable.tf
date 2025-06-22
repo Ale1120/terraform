@@ -1,6 +1,7 @@
 variable "virginia_cider" {  
     description = "Cider block for the Virginia VPC"
-   type = string
+    type = string
+    # teype = map(string)
     sensitive = true
 
 } 
